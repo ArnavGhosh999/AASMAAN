@@ -96,7 +96,6 @@ To install the required dependencies, clone the repository and install the Pytho
 ```bash
 git clone https://github.com/ArnavGhosh999/Aasmaan.git
 cd Aasmaan/Se-ResNet50
-pip install -r requirements.txt
 ```
 
 Ensure that you have the following libraries installed:
@@ -129,11 +128,28 @@ pip install torch torchvision timm Pillow rasterio opencv-python
    ```
 3. **Training**: Train the model using:
    ```python
-   python train_model.py
+   for epoch in range(epochs):
+    model.train()
+    running_loss = 0.0
+    for inputs, labels in train_loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        running_loss += loss.item()
    ```
 4. **Evaluation**: Evaluate the model performance:
    ```python
-   python evaluate_model.py
+   for inputs, labels in train_loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+        outputs = model(inputs)
+        _, predicted = torch.max(outputs, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
    ```
 
 ## References
