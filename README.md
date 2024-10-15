@@ -116,7 +116,16 @@ pip install torch torchvision timm Pillow rasterio opencv-python
 1. **Dataset Preparation**: Mount your Google Drive or local directory where the dataset is stored.
 2. **Image Conversion**: Run the conversion script to convert `.tif` images to `.jpg`:
    ```python
-   python convert_images.py
+    for root, dirs, files in os.walk(input_directory):
+        for file in files:
+            if file.lower().endswith(('.tif', '.tiff')):
+                input_path = os.path.join(root, file)
+                relative_path = os.path.relpath(input_path, input_directory)
+                output_path = os.path.join(output_directory, os.path.splitext(relative_path)[0] + '.jpg')
+                output_dir = os.path.dirname(output_path)
+                if not os.path.exists(output_dir):
+                    os.makedirs(output_dir)
+                convert_image(input_path, output_path)
    ```
 3. **Training**: Train the model using:
    ```python
