@@ -1,6 +1,6 @@
 # Aasmaan_modified
 
-# SE-ResNet50 for Satellite Image Classification
+# Satellite Image Classification
 
 This repository contains code for classifying high-resolution satellite images using SE-ResNet50 and other advanced deep learning models. The dataset used is the UCMerced LandUse dataset, and the code includes models like SE-ResNet50, SE-ResNeXt, and SENet, using transfer learning to fine-tune pretrained models for image classification.
 
